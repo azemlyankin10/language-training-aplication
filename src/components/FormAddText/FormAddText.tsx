@@ -11,7 +11,7 @@ export const FormAddText = () => {
     e.preventDefault()
     const area = ref.current
     if (area) {
-      setNewText(old => [...old, { text: area.value, indicators: ['unread'], id: nanoid() }])
+      setNewText(old => [...old, { text: area.value, indicators: ['unread'], id: nanoid(), addedWords: [] }])
       area.value = ''
     }
   }

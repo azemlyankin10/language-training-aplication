@@ -20,4 +20,7 @@ export type typeReadingCard = {
   id: string
   text: string
   indicators: typeIndicators
+  addedWords?: string[] | undefined
 }
+
+export type position = {x: number, y: number}
