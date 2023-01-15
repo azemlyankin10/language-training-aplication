@@ -21,3 +21,10 @@ export const translate = async ({word, fromLang, toLang}: { word: string, fromLa
     console.log("There was an error with the translation request: ", error);
   }
 }
+
+export const countWords = (str: string): number => {
+  str = str.replace(/(^\s*)|(\s*$)/gi,"");
+  str = str.replace(/[ ]{2,}/gi," ");
+  str = str.replace(/\n /,"\n");
+  return str.split(' ').length;
+}

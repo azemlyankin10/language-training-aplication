@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { position } from "../../../../utils/types"
+import { position, typeReadingCard } from "../../../../utils/types"
 import { TranslationTip } from "./TranslationTip/TranslationTip"
 
-export const Text = ({text}: {text: string}) => {
+export const Text = ({card}: {card: typeReadingCard}) => {
   const [wordPosition, setWordPosition] = useState<position>({x: 0, y: 0})
   const [wordToTranslate, setWordToTranslate] = useState('')
   const [isTip, setIsTip] = useState(false)
@@ -16,18 +16,19 @@ export const Text = ({text}: {text: string}) => {
       setIsTip(true)
     }
   }
-  //TODO: Make to close translation tip 
+
   return (
     <>
       <p 
         onMouseUp={getSelectedText}
         className="font-light text-gray-800"
       >
-        {text}
+        {card.text}
       </p>
       {
         isTip && (
           <TranslationTip 
+            card={card}
             position={wordPosition} 
             word={wordToTranslate}
             onClose={() => setIsTip(false)}
