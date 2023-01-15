@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { RecoilRoot } from "recoil";
+import { Navigation } from "./components/Navigation/Navigation";
+import { ReadingPage } from "./pages/ReadingPage/ReadingPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { HomePage } from "./pages/HomePage/HomePage";
+import { CardPage } from "./pages/ReadingPage/CardPage/CardPage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const App = () => (
+  <BrowserRouter>
+    <RecoilRoot>
 
-export default App;
+      <Navigation/>
+      
+      <Routes>
+        <Route
+          path="/"
+          element={<HomePage />}
+        />
+
+        <Route
+          path="/reading"
+          element={<ReadingPage />}
+        />
+        <Route
+          path="/reading/:id"
+          element={<CardPage />}
+        />
+      </Routes>
+
+    </RecoilRoot>
+  </BrowserRouter>
+)
+
+// function ErrorPage() {
+//   return <div>Error page</div>
+// }
