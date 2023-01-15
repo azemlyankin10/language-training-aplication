@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { translate } from "../../../../../utils/ts"
 
 
-export const TranslationTip = ({position, word}: {position: position, word: string}) => {
+export const TranslationTip = ({position, word, onClose}: {position: position, word: string, onClose: () => void}) => {
   const [translation, setTranslation] = useState('')
   
   // useEffect(() => {
@@ -17,7 +17,7 @@ export const TranslationTip = ({position, word}: {position: position, word: stri
   // }, [word])
 
   return (
-    <Tip position={position}>
+    <Tip position={position} onClose={onClose}>
       <div className="px-3 py-2">
         <p>{word}</p>
         <hr className="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700"></hr>

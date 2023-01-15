@@ -25,7 +25,15 @@ export const Text = ({text}: {text: string}) => {
       >
         {text}
       </p>
-      {isTip && <TranslationTip position={wordPosition} word={wordToTranslate}/>}
+      {
+        isTip && (
+          <TranslationTip 
+            position={wordPosition} 
+            word={wordToTranslate}
+            onClose={() => setIsTip(false)}
+          />
+        )
+      }
     </>
   )
 }
