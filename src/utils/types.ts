@@ -1,11 +1,12 @@
-export type typeOfOneindicator = 'favorits' | 'unread'
+export type typeOfOneindicator = 'all' | 'favorits' | 'unread' | 'read'
+
 
 export type typeIndicators = Array<typeOfOneindicator>
 
 
 export type typeSelectOption = {
   id: number,
-  value: string
+  value: typeOfOneindicator 
 }
 
 export type typeOptions = typeSelectOption[]
@@ -20,7 +21,7 @@ export type typeReadingCard = {
   id: string
   text: string
   indicators: typeIndicators
-  addedWords?: string[] | undefined
+  addedWords?: {word: string, translation: string}[]
 }
 
 export type position = {x: number, y: number}
