@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { position, typeReadingCard } from "../../../../utils/types"
+import { position, typeReadingCard } from "../../../utils/types"
 import { TranslationTip } from "./TranslationTip/TranslationTip"
 
 export const Text = ({card}: {card: typeReadingCard}) => {
@@ -21,7 +21,7 @@ export const Text = ({card}: {card: typeReadingCard}) => {
     <>
       <p 
         onMouseUp={getSelectedText}
-        className="font-light text-gray-800"
+        className="font-light text-lg text-gray-800 bg-white px-5 py-10 "
       >
         {card.text}
       </p>

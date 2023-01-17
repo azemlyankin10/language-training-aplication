@@ -43,3 +43,10 @@ export type typeLang = {
   default: boolean
   selected: boolean
 }
+
+export type typeCard = {
+  title: string
+  desc: string
+  link: string
+  img: string
+}

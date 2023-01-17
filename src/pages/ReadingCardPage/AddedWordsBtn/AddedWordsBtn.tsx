@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { typeReadingCard } from "../../../../utils/types";
+import { typeReadingCard } from "../../../utils/types";
 import { DrawerBtnReading } from "./DrawerBtnReading/DrawerBtnReading";
 
 export const AddedWordsBtn = ({currentCard}: {currentCard: typeReadingCard}) => {

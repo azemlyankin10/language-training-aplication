@@ -1,8 +1,8 @@
 import { useSetRecoilState } from 'recoil'
-import icon from '../../../../img/star-symbol-icon.svg'
-import { readingCards } from '../../../../state/atom'
-import { changeCard } from '../../../../utils/ts'
-import { typeReadingCard } from '../../../../utils/types'
+import icon from '../../../img/star-symbol-icon.svg'
+import { readingCards } from '../../../state/atom'
+import { changeCard } from '../../../utils/ts'
+import { typeReadingCard } from '../../../utils/types'
 
 export const BtnFavorit = ({card}: {card: typeReadingCard}) => {
   const setReadingCards = useSetRecoilState(readingCards)
