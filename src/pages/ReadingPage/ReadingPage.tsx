@@ -1,33 +1,43 @@
 import { PageTitle } from "../../components/PageTitle/PageTitle";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { FormAddText } from "../../components/FormAddText/FormAddText";
-import { ReadingCard } from "../../components/ReadingCard/ReadingCard";
+import { ReadingCard } from "./ReadingCard/ReadingCard";
 import { Select } from "../../components/Select/Select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { typeOptions } from "../../utils/types";
 import { useRecoilValue } from "recoil";
 import { readingCards } from "../../state/atom";
-
+import { changeCollection } from "../../utils/ts";
 
 const options: typeOptions = [
   {
     id: 1,
-    value: 'All'
+    value: 'all'
   },
   {
     id: 2,
-    value: 'Favorits'
+    value: 'favorits'
   },
   {
     id: 3,
-    value: 'Unread'
+    value: 'unread'
+  },
+  {
+    id: 4,
+    value: 'read'
   },
 ]
 
 export const ReadingPage = () => {
   const [selected, setSelected] = useState(options[0])
   const cards = useRecoilValue(readingCards)
-  
+  const [cardCollection, setCardCollection] = useState(cards)
+
+  useEffect(() => {
+    const updatedCollection = changeCollection(selected.value, cards)
+    setCardCollection(updatedCollection)
+  }, [cards, selected])
+
   return (
     <>
       <PageTitle title="Reading" />
@@ -52,8 +62,8 @@ export const ReadingPage = () => {
           <TabPanel className="px-4 py-6 sm:px-0">
             <div className="grid grid-cols-4 gap-6">
               {
-                cards.map(({ text, indicators, id }, index) => (
-                  <ReadingCard key={index} text={text} indicators={indicators} id={id}/>
+                cardCollection.map((card, index) => (
+                  <ReadingCard key={index} card={card}/>
                 ))
               }
             </div>

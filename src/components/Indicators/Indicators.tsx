@@ -24,6 +24,9 @@ function indicator(indicator: typeOfOneindicator, index: number) {
   } else if (indicator === 'favorits') {
     colors.container = 'bg-yellow-100 text-yellow-800'
     colors.round = 'bg-yellow-300'
+  } else if(indicator === 'read') {
+    colors.container = 'bg-pink-100 text-pink-800'
+    colors.round = 'bg-pink-300'
   }
 
   return (

@@ -1,6 +1,6 @@
 import { atom } from "recoil"
 import { localStorageEffect } from "./effects"
-import { typeReadingCard } from "../utils/types"
+import { typeNotifications, typeReadingCard } from "../utils/types"
 
 export const readingCards = atom({
   key: 'readingCards',
@@ -10,3 +10,19 @@ export const readingCards = atom({
   ]
 })
 
+export const notificationCollection = atom({
+  key: 'notificationCollection',
+  default: [] as typeNotifications[]
+})
+
+export const settingsState = atom({
+  key: 'settingsState',
+  default: {
+    originalLang: {id: "ZNt6drUmXrhdfY8cEMpKf", lang: "en-US", name: "Альберт"},
+    translatedLang: {id: "bp4EyggMTVp97qBYbyMTd", lang: "uk-UA", name: "Леся"},
+    voiceLang: {id: "ZNt6drUmXrhdfY8cEMpKf", lang: "en-US", name: "Альберт"}
+  },
+  effects: [
+    localStorageEffect('settings'),
+  ]
+})
