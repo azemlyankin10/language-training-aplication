@@ -1,12 +1,12 @@
-import { Tip } from "../../../../../components/Tip/Tip"
-import { position, typeReadingCard } from "../../../../../utils/types"
+import { Tip } from "../../../../components/Tip/Tip"
+import { position, typeReadingCard } from "../../../../utils/types"
 import { useEffect, useState } from "react"
-import { changeCard, countWords } from "../../../../../utils/ts"
+import { changeCard, countWords } from "../../../../utils/ts"
 import { useSetRecoilState } from "recoil"
-import { readingCards } from "../../../../../state/atom"
-import { useTranslate } from "../../../../../utils/Hooks/useTranslate"
-import { useSpeechSynthesis } from "../../../../../utils/Hooks/useSpeechSynthesis"
-import iconSpeak from '../../../../../img/speak-icon.svg'
+import { readingCards } from "../../../../state/atom"
+import { useTranslate } from "../../../../utils/Hooks/useTranslate"
+import { useSpeechSynthesis } from "../../../../utils/Hooks/useSpeechSynthesis"
+import iconSpeak from '../../../../img/speak-icon.svg'
 
 export const TranslationTip = ({ card, position, word, onClose}: { card: typeReadingCard, position: position, word: string, onClose: () => void}) => {
   const [translation, setTranslation] = useState('')

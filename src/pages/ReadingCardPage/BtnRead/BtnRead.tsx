@@ -1,7 +1,7 @@
 import { useSetRecoilState } from "recoil"
-import { readingCards } from "../../../../state/atom"
-import { changeCard } from "../../../../utils/ts"
-import { typeReadingCard } from "../../../../utils/types"
+import { readingCards } from "../../../state/atom"
+import { changeCard } from "../../../utils/ts"
+import { typeReadingCard } from "../../../utils/types"
 
 export const BtnRead = ({card}: {card: typeReadingCard}) => {
   const setReadingCards = useSetRecoilState(readingCards)

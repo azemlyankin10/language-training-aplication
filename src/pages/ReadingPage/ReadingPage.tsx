@@ -1,13 +1,13 @@
 import { PageTitle } from "../../components/PageTitle/PageTitle";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { FormAddText } from "../../components/FormAddText/FormAddText";
-import { ReadingCard } from "./ReadingCard/ReadingCard";
 import { Select } from "../../components/Select/Select";
 import { useEffect, useState } from "react";
 import { typeOptions } from "../../utils/types";
 import { useRecoilValue } from "recoil";
 import { readingCards } from "../../state/atom";
 import { changeCollection } from "../../utils/ts";
+import { ReadingCard } from "./ReadingCard/ReadingCard";
 
 const options: typeOptions = [
   {

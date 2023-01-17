@@ -4,7 +4,7 @@ import { LinkToOpen } from "./LinkToOpen/LinkToOpen";
 import { DeleteBtn } from "./DeleteBtn/DeleteBtn";
 
 export const ReadingCard = ({card}: {card: typeReadingCard}) => (
-  <div className="relative max-w-sm p-6 bg-yellow border border-gray-200 rounded-lg shadow-md">
+  <div className="relative max-w-sm p-6 bg-yellow border border-gray-200 rounded-lg shadow-md bg-white">
     <div className="absolute -top-2 right-0 flex">
       <Indicators kindsOfIndicators={card.indicators}  />
     </div>

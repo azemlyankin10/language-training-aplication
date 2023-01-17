@@ -1,6 +1,6 @@
-import { Accordion } from "../../../../../components/Accordion/Accordion"
-import { Drawer } from "../../../../../components/Drawer/Drawer"
-import { typeReadingCard } from "../../../../../utils/types"
+import { Accordion } from "../../../../components/Accordion/Accordion"
+import { Drawer } from "../../../../components/Drawer/Drawer"
+import { typeReadingCard } from "../../../../utils/types"
 
 export const DrawerBtnReading = ({currentCard, onClose}: {currentCard: typeReadingCard, onClose: () => void}) => {
 

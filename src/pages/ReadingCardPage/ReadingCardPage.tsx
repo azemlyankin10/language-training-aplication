@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useRecoilValue } from "recoil"
-import { Indicators } from "../../../components/Indicators/Indicators"
-import { readingCards } from "../../../state/atom"
-import { typeReadingCard } from "../../../utils/types"
+import { Indicators } from "../../components/Indicators/Indicators"
+import { readingCards } from "../../state/atom"
+import { typeReadingCard } from "../../utils/types"
 import { AddedWordsBtn } from "./AddedWordsBtn/AddedWordsBtn"
 import { BtnFavorit } from "./BtnFavorit/BtnFavorit"
 import { BtnRead } from "./BtnRead/BtnRead"
 import { Text } from "./Text/Text"
 
-export const CardPage = () => {
+export const ReadingCardPage = () => {
   const { id } = useParams()
   const cards = useRecoilValue(readingCards)
   const [currentCard, setCurrentCard] = useState<typeReadingCard>()
