@@ -25,3 +25,21 @@ export type typeReadingCard = {
 }
 
 export type position = {x: number, y: number}
+
+export type typeToast = 'success' | 'deleted'
+
+export type typeNotifications = {
+  id: string
+  type: typeToast
+  text: string
+}
+
+export type typeLang = {
+  id: string
+  voiceURI: string
+  name: string
+  lang: string
+  localService: boolean 
+  default: boolean
+  selected: boolean
+}

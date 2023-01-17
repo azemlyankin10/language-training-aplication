@@ -1,11 +1,13 @@
 import { nanoid } from "nanoid"
 import { createRef, FormEvent } from "react"
 import { useSetRecoilState } from "recoil"
-import { readingCards } from "../../state/atom"
+import { notificationCollection, readingCards } from "../../state/atom"
 
 export const FormAddText = () => {
   const ref = createRef<HTMLTextAreaElement>()
   const setNewText = useSetRecoilState(readingCards)
+  const setNotificationCollection = useSetRecoilState(notificationCollection)
+
 
   const formSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -13,6 +15,7 @@ export const FormAddText = () => {
     if (area) {
       setNewText(old => [...old, { text: area.value, indicators: ['unread'], id: nanoid(), addedWords: [] }])
       area.value = ''
+      setNotificationCollection(old => [...old, {id: nanoid(), type: 'success', text: 'text has been added to your collection'}])
     }
   }
 
