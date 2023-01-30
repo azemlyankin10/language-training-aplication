@@ -17,11 +17,22 @@ export type typeSelect = {
   setSelected: (selected: typeSelectOption) => void
 }
 
+export type addedWord = {
+  addedFrom: string,
+  id: string,
+  word: string, 
+  translation: string
+  knowWord: number,
+  dontKnowWord: number,
+  studied: boolean,
+  img: string,
+}
+
 export type typeReadingCard = {
   id: string
   text: string
   indicators: typeIndicators
-  addedWords?: {word: string, translation: string}[]
+  // addedWords?: addedWord[]
 }
 
 export type position = {x: number, y: number}
@@ -50,3 +61,12 @@ export type typeCard = {
   link: string
   img: string
 }
+
+// export type learnedWord = {
+//   word: string,
+//   translated: string,
+//   knowWord: number,
+//   dontKnowWord: number,
+//   studied: boolean,
+//   // img?: string,
+// }

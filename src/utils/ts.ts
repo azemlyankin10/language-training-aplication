@@ -1,4 +1,5 @@
-import { typeOfOneindicator, typeReadingCard } from "./types";
+import { addedWord, typeOfOneindicator, typeReadingCard } from "./types";
+import { createClient } from 'pexels';
 
 export const classNames = (...classes: any) => classes.filter(Boolean).join(' ')
 
@@ -31,5 +32,24 @@ export const changeCollection = (selected: typeOfOneindicator, cards: typeReadin
       return cards.filter(el => el.indicators.includes('read'))
     default:
       return cards
+  }
+}
+
+export const setNewParamInLearnWord = (oldArray: addedWord[], wordId: string, cardId: string, newItem: addedWord) => {
+  const arrayCopy = [...oldArray]
+  const index = arrayCopy.findIndex(el => (el.addedFrom === cardId && el.id === wordId))
+  arrayCopy.splice(index, 1, newItem);
+  return arrayCopy
+}
+
+
+const client = createClient('tR8Ojw9e9kvkpc4Nvm7B3dFPtvxErwvbTDRR6OPEpPjnQRuDPcaBwl9t');
+export const getPhoto = async(keyWord: string) => {
+  const query = keyWord
+  try {
+    const res = await client.photos.search({ query, per_page: 1 }) as any
+    return res.photos[0].src.original
+  } catch (error) {
+    console.log(error);
   }
 }

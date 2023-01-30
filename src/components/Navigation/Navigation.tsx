@@ -5,6 +5,7 @@ import { ProfileDropdown } from './ProfileDropdown/ProfileDropdown'
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Reading', href: 'reading', current: true },
+  { name: 'Vocabulary', href: 'vocabulary', current: true },
 ]
 
 export function Navigation() {

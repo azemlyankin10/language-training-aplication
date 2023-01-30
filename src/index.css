@@ -10,3 +10,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.swiper-scrollbar.swiper-scrollbar-horizontal {
+  bottom: initial !important;
+  top: 5px !important;
+}
+.swiper-scrollbar-drag {
+  background-color: chartreuse !important;
+}

@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 import { readingCards } from "../../state/atom";
 import { changeCollection } from "../../utils/ts";
 import { ReadingCard } from "./ReadingCard/ReadingCard";
+import { useGetRandomArticle } from "../../utils/Hooks/useGetRandomArticle";
 
 const options: typeOptions = [
   {
@@ -32,6 +33,7 @@ export const ReadingPage = () => {
   const [selected, setSelected] = useState(options[0])
   const cards = useRecoilValue(readingCards)
   const [cardCollection, setCardCollection] = useState(cards)
+  const { getArticle, isLoading } = useGetRandomArticle()
 
   useEffect(() => {
     const updatedCollection = changeCollection(selected.value, cards)
@@ -57,6 +59,13 @@ export const ReadingPage = () => {
             <Tab className='rounded-md p-3 bg-gray-700 hover:bg-gray-600 text-white cursor-pointer'>
               Add text
             </Tab>
+            <button 
+              disabled={isLoading}
+              className="rounded-md p-3 ml-3 bg-gray-700 hover:bg-gray-600 text-white cursor-pointer"
+              onClick={getArticle}
+            >
+              {isLoading ? 'loading...' : 'Get random article'}
+            </button>
           </TabList>
 
           <TabPanel className="px-4 py-6 sm:px-0">
