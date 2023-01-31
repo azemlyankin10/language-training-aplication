@@ -5,7 +5,7 @@ import { notificationCollection, readingCards, settingsState } from '../../state
 
 
 export const useGetRandomArticle = () => {
-  const [article, setArticle] = useState<any>()
+  const [article, setArticle] = useState()
   const setNewText = useSetRecoilState(readingCards)
   const setNotificationCollection = useSetRecoilState(notificationCollection)
   const { originalLang: { lang } } = useRecoilValue(settingsState)

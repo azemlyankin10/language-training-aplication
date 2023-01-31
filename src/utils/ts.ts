@@ -1,4 +1,4 @@
-import { addedWord, typeOfOneindicator, typeReadingCard } from "./types";
+import { addedWord, typeOfOneindicator, typeReadingCard, typeStat } from "./types";
 import { createClient } from 'pexels';
 
 export const classNames = (...classes: any) => classes.filter(Boolean).join(' ')
@@ -35,6 +35,19 @@ export const changeCollection = (selected: typeOfOneindicator, cards: typeReadin
   }
 }
 
+
+const client = createClient('tR8Ojw9e9kvkpc4Nvm7B3dFPtvxErwvbTDRR6OPEpPjnQRuDPcaBwl9t');
+export const getPhoto = async(keyWord: string) => {
+  const query = keyWord
+  try {
+    const res = await client.photos.search({ query, per_page: 1 }) as any
+    return res.photos[0].src.medium
+  } catch (error) {
+    console.log(error);
+    return 'https://www.charlotteathleticclub.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png'
+  }
+}
+
 export const setNewParamInLearnWord = (oldArray: addedWord[], wordId: string, cardId: string, newItem: addedWord) => {
   const arrayCopy = [...oldArray]
   const index = arrayCopy.findIndex(el => (el.addedFrom === cardId && el.id === wordId))
@@ -43,13 +56,49 @@ export const setNewParamInLearnWord = (oldArray: addedWord[], wordId: string, ca
 }
 
 
-const client = createClient('tR8Ojw9e9kvkpc4Nvm7B3dFPtvxErwvbTDRR6OPEpPjnQRuDPcaBwl9t');
-export const getPhoto = async(keyWord: string) => {
-  const query = keyWord
-  try {
-    const res = await client.photos.search({ query, per_page: 1 }) as any
-    return res.photos[0].src.original
-  } catch (error) {
-    console.log(error);
+export const addStatToWord = (oldArray: addedWord[], wordId: string, cardId: string) => (howManyAdd: number, operator: '-' | '+') => {
+    const item = oldArray.find(el => (el.addedFrom === cardId && el.id === wordId)) 
+    if (item) {
+      if (item.knowWord > 0 && operator === '-') {
+        const newItem = {...item, knowWord: item.knowWord - howManyAdd}
+        return setNewParamInLearnWord(oldArray, wordId, cardId, newItem)
+      }
+      if (operator === '+') {
+        const newItem = {...item, knowWord: item.knowWord + howManyAdd}
+        return setNewParamInLearnWord(oldArray, wordId, cardId, newItem)
+      }
+    }
+    return oldArray
+}
+
+export const changeStatistic = (allArray: typeStat[], card: addedWord, operator: '-' | '+') => {
+  const copyOfArray = [...allArray]
+  const oneCard = copyOfArray.find(el => el.sessionId)
+  if (!oneCard) {
+    return copyOfArray
   }
+  const index = copyOfArray.findIndex(el => el.sessionId)
+  
+  if (operator === '+') {
+    const newCard = { ...oneCard,  trueCards: [...oneCard.trueCards, card]}
+    copyOfArray.splice(index, 1, newCard)
+  } 
+  if (operator === '-') {
+    const newCard = { ...oneCard,  falseCards: [...oneCard.falseCards, card]}
+    copyOfArray.splice(index, 1, newCard)
+  }
+  return copyOfArray
+}
+
+// export const getDataFromStat = (session: string, statArray: typeStat[]) => {
+//   const neededArray = statArray.find(el => el.sessionId === session)
+//   // return neededArray.map(el => ({truesArray: el.trueCards, falsesArray: el.falseCards}))
+
+// }
+
+export const shuffleArray = (array: any[]) => array.sort(() => Math.random() - 0.5)
+
+export const getProcent = (num: number, allNum: number) => {
+  if (allNum === 0) return 0
+  return Number((num / allNum * 100).toFixed(1))
 }

@@ -1,64 +1,33 @@
-import { nanoid } from "nanoid"
-import { useEffect, useState } from "react"
-import { useRecoilValue, useSetRecoilState } from "recoil"
-import { Quiz } from "../../../components/Quiz/Quiz"
-import { notificationCollection } from "../../../state/atom"
+import { useRecoilValue } from "recoil"
+import { SwiperSlide } from "swiper/react"
+import { Quiz } from "./Quiz/Quiz"
+import { TaskLayout } from "../../../components/TaskLayout/TaskLayout"
 import { getLearnWords } from "../../../state/selector"
-import { useGetRandomWords } from "../../../utils/Hooks/useGetRandomWord"
+import { useState } from "react"
+import { useCreateStatInstanse } from "../../../utils/Hooks/useCreateStatInstanse"
 
 export const VocabularyQuizPage = () => {
-  const { isLoading, getRandomWords, randomWords } = useGetRandomWords()
   const { words } = useRecoilValue(getLearnWords) 
-  const [quizSetUp, setQuizSetUp] = useState<any>({})
-  const [isMounted, setIsMounted] = useState(false)
-  const setNotificationCollection = useSetRecoilState(notificationCollection)
-  // const [answer, setAnswer] = useState({
-  //   correct: null,
-  //   isAnswered: false
-  // })
+  const [slideCount, setSlideCount] = useState(words.length)
+  const { session, currentStat } = useCreateStatInstanse({name: 'quiz'})
   
-  useEffect(() => {
-    if (!isMounted) {
-      if (randomWords.length < 2) {
-        getRandomWords()
-      } 
-  
-      if (randomWords.length > 1) {
-        setIsMounted(true)
-        const answers = randomWords
-          .map((el: string) => ({ word: el, id: nanoid() }))
-          .concat({word: words[0].translation, id: words[0].id})
-  
-        setQuizSetUp({
-          img: words[0].img,
-          origin: words[0].word,
-          secondary: shuffle(answers)
-        })  
-      }
-    }
-  }, [getRandomWords, isMounted, randomWords, words])
-
-  const onClickHandler = (e: any) => {
-    const answeredElem = e.target.id
-    if (answeredElem === words[0].id) {
-      setNotificationCollection(old => [...old, {id: nanoid(), type: 'success', text: 'good'}])
-    } else {
-      setNotificationCollection(old => [...old, {id: nanoid(), type: 'deleted', text: 'not correct'}])
-    }
-  }
-
   return (
-    <div className="container mx-auto py-10 flex justify-center">
-      {
-        isLoading 
-          ? 'loading...' 
-          : <Quiz img={quizSetUp.img} origin={quizSetUp.origin} secondary={quizSetUp.secondary} handler={onClickHandler}/>
-      }
+    <div className="mx-auto max-w-7xl py-20 sm:px-6 lg:px-8 h-5/6">
+      {currentStat && <div><p>{currentStat?.trueCards.length + currentStat?.falseCards.length}</p><p>{words.length}</p></div>} 
+      <TaskLayout 
+        isPlay={slideCount > 0} 
+        swiperSlides={
+          words?.map(word => (
+            <SwiperSlide key={word.id}>
+              <Quiz word={word} changeTaskHandler={() => { setSlideCount(slideCount - 1) }} />
+            </SwiperSlide>
+          ))
+        }
+        finishTaskReactNode={<p>end</p>} 
+      />
     </div>
   )
 }
 
-function shuffle(array: any) {
-  return array.sort(() => Math.random() - 0.5);
-}
+
 

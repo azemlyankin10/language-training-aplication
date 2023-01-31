@@ -4,35 +4,39 @@ import { useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { settingsState } from '../../state/atom'
 import { useTranslate } from './useTranslate'
+import words from 'random-words'
 
 
 export const useGetRandomWords = () => {
-  const [randomWords, setRandomWords] = useState<any>([])
   const { translatedLang: { lang } } = useRecoilValue(settingsState)
   const [isLoading, setIsLoading] = useState(false)
   const { translate } = useTranslate()
 
-
   const getRandomWords = async() => {
     setIsLoading(true)
-    try {
-      let arr = []
-      for (let i = 0; i < 3; i++) { 
-        const res = await fetch('https://api.api-ninjas.com/v1/randomword', {headers: {'X-Api-Key': 'GjRAvaZZX5iwB3MRUvu0aQ==32zwnvQjDA5MTxyf'}}) as any
-        const { word } = await res.json()
-        const translatedWord = await translate(word, 'en', lang)
-        arr.push(translatedWord)
-      }
-      setRandomWords(arr)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setIsLoading(false)
-    }
+    const getRandomWords = words(3)
+    const translatedTandomWords = await Promise.all(getRandomWords.map(async (word) => await translate(word, 'en', lang)))
+    setIsLoading(false)
+    return translatedTandomWords
+    // setRandomWords(translatedTandomWords)
+    // let arr = ['']
+    // try {
+    //   const urls = ['https://api.api-ninjas.com/v1/randomword', 'https://api.api-ninjas.com/v1/randomword', 'https://api.api-ninjas.com/v1/randomword']
+    //   arr = await Promise.all(urls.map(
+    //     url => fetch(url, {headers: {'X-Api-Key': 'GjRAvaZZX5iwB3MRUvu0aQ==32zwnvQjDA5MTxyf'}})
+    //           .then(el => el.json())
+    //           .then(({ word }) => translate(word, 'en', lang))
+    //   ))
+    // } catch (error) {
+    //   console.log(error)
+    // } finally {
+    //   setIsLoading(false)
+    //   return arr
+    // }
   }
 
 
-  return { randomWords, getRandomWords, isLoading }
+  return { getRandomWords, isLoading }
 }
 
 

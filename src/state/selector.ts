@@ -7,7 +7,7 @@ export const getLearnWords = selector({
     const words = get(learnWords)
     // setNewParamInLearnWord = (oldArray: addedWord[], wordId: string, cardId: string, newItem: addedWord)
     const checkLearnWords = words.map(el => {
-      if (el.knowWord === 5) {
+      if (el.knowWord === 10) {
         return {...el, studied: true}
       }
       return el

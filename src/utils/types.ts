@@ -62,11 +62,41 @@ export type typeCard = {
   img: string
 }
 
-// export type learnedWord = {
-//   word: string,
-//   translated: string,
-//   knowWord: number,
-//   dontKnowWord: number,
-//   studied: boolean,
-//   // img?: string,
-// }
+export type typeQuiz = {
+  word: addedWord
+  changeTaskHandler: () => void
+}
+
+export type typeQuizContainer = {
+  word: addedWord, 
+  quizSetUp: {img: string, origin: string, secondary: string[]}, 
+  isAnswered: boolean, 
+  onClickHandler: (e: React.MouseEvent<HTMLElement>, wordId: string, cardId: string) => void
+}
+
+export type typeFlipCard = {
+  word: string, 
+  translation: string, 
+  img: string, 
+  knowWord: () => void, 
+  dontKnowWord: () => void
+}
+
+export type typeFlipCardContainer = {
+  isFlipped: boolean
+  isDisabledBtnKnowAndDontKnow: boolean
+  speakBtn: () => void
+  handleCardClick: () => void
+  word: string
+  translation: string
+  img: string
+  knowBtnHandler: () => void
+  dontKnowBtnHandler: () => void
+}
+
+export type typeStat = {
+  sessionId: string, 
+  taskName: string, 
+  trueCards: addedWord[] | [], 
+  falseCards: addedWord[] | []
+}
