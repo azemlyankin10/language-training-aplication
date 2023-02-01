@@ -2,36 +2,35 @@ import { SwiperSlide } from 'swiper/react';
 import { FlipCard } from './FlipCard/FlipCard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { getLearnWords } from '../../../state/selector';
-import { learnWords } from '../../../state/atom';
-import { addStatToWord } from '../../../utils/ts';
+import { learnWords, scoreSettingsState, statsState } from '../../../state/atom';
+import { addStatToWord, changeStatistic } from '../../../utils/ts';
 import { useState } from 'react';
-import { VocabularyStat } from './VocabularyStat/VocabularyStat';
 import { TaskLayout } from '../../../components/TaskLayout/TaskLayout';
+import { useCreateStatInstanse } from '../../../utils/Hooks/useCreateStatInstanse';
+import { QuizEndPage } from '../../../components/QuizEndPage/QuizEndPage';
+import { addedWord } from '../../../utils/types';
 
 
 export const VocabularyCardsPage = () => {
+  const { flashCardScore } = useRecoilValue(scoreSettingsState)
   const { words } = useRecoilValue(getLearnWords) 
   const setLearnWordsState = useSetRecoilState(learnWords)
   const [countTasks, setCountTasks] = useState(words.length)
-  const [stat, setStat] = useState({
-    know: 0,
-    dontKnow: 0
-  })
+  const { session } = useCreateStatInstanse({name: 'cards'})
+  const setStatistic = useSetRecoilState(statsState)
 
-  const knowWord = (wordId: string, cardId: string) => {
-    setLearnWordsState(old => addStatToWord(old, wordId, cardId)(1, '+'))
-
-    setStat({ ...stat, know: stat.know + 1 })
+  const knowWord = (word: addedWord, wordId: string, cardId: string) => {
+    setLearnWordsState(old => addStatToWord(old, wordId, cardId)(flashCardScore, '+'))
+    setStatistic(old => changeStatistic(session, '', old, word, '+', flashCardScore))
 
     setTimeout(() => {
       setCountTasks(countTasks - 1)
     }, 1000)
   }
   
-  const dontKnowWord = (wordId: string, cardId: string) => {
-    setLearnWordsState(old => addStatToWord(old, wordId, cardId)(1, '-'))
-
-    setStat({ ...stat, dontKnow: stat.dontKnow + 1 })
+  const dontKnowWord = (word: addedWord, wordId: string, cardId: string) => {
+    setLearnWordsState(old => addStatToWord(old, wordId, cardId)(flashCardScore, '-'))
+    setStatistic(old => changeStatistic(session, '', old, word, '-', flashCardScore))
 
     setTimeout(() => {
       setCountTasks(countTasks - 1)
@@ -44,21 +43,21 @@ export const VocabularyCardsPage = () => {
       <TaskLayout 
         isPlay={countTasks > 0} 
         swiperSlides={
-          words?.map(({word, translation, id, img, addedFrom}) => (
-            <SwiperSlide key={id}>
+          words?.map((word) => (
+            <SwiperSlide key={word.id}>
 
               <FlipCard
-                img={img}
-                word={word} 
-                translation={translation}
-                knowWord={() => { knowWord(id, addedFrom) }}
-                dontKnowWord={() => { dontKnowWord(id, addedFrom) }}
+                img={word.img}
+                word={word.word} 
+                translation={word.translation}
+                knowWord={() => { knowWord(word, word.id, word.addedFrom) }}
+                dontKnowWord={() => { dontKnowWord(word, word.id, word.addedFrom) }}
               />
 
             </SwiperSlide>
           ))
         }
-        finishTaskReactNode={<VocabularyStat stat={stat}/>} 
+        finishTaskReactNode={<QuizEndPage session={session} />} 
       />
     </div>
   )

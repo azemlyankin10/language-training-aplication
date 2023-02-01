@@ -3,7 +3,7 @@ import { Navigation } from "../Navigation/Navigation";
 import { Toasts } from "../Toasts/Toasts";
 
 export const Layout = () => (
-  <div className="bg-blue-400 min-h-screen">
+  <div className="min-h-screen custom-bg">
     <Navigation />
 
     <Outlet />

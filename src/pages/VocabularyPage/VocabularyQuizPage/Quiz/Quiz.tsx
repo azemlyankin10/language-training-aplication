@@ -1,8 +1,8 @@
 import { nanoid } from "nanoid"
 import { useState, useEffect } from "react"
-import { useSetRecoilState } from "recoil"
+import { useRecoilValue, useSetRecoilState } from "recoil"
 import { useSwiper } from "swiper/react"
-import { learnWords, notificationCollection, statsState } from "../../../../state/atom"
+import { learnWords, notificationCollection, scoreSettingsState, statsState } from "../../../../state/atom"
 import { useGetRandomWords } from "../../../../utils/Hooks/useGetRandomWord"
 import { useSpeechSynthesis } from "../../../../utils/Hooks/useSpeechSynthesis"
 import { addStatToWord, changeStatistic, shuffleArray } from "../../../../utils/ts"
@@ -10,7 +10,8 @@ import { typeQuiz } from "../../../../utils/types"
 import { QuizContainer } from "./QuizContainer"
 import { ClockLoader } from "react-spinners"
 
-export const Quiz = ({word, changeTaskHandler}:typeQuiz) => {
+export const Quiz = ({session, word, changeTaskHandler}:typeQuiz) => {
+  const { wordQuizScore, howManyNeedToCompleteWord } = useRecoilValue(scoreSettingsState)
   const [isAnswered, setIsAnswered] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
   const { isLoading, getRandomWords } = useGetRandomWords()
@@ -47,13 +48,14 @@ export const Quiz = ({word, changeTaskHandler}:typeQuiz) => {
     setIsAnswered(true)
     const answeredElem = (e.target as HTMLButtonElement).textContent
     if (answeredElem === word.translation) {
-      setLearnWordsState(old => addStatToWord(old, wordId, cardId)(0.5, '+'))
+      setLearnWordsState(old => addStatToWord(old, wordId, cardId)(wordQuizScore, '+'))
       setNotificationCollection(old => [...old, {id: nanoid(), type: 'success', text: 'good'}])
-      setStatistic(old => changeStatistic(old, word, '+'))
+      setStatistic(old => changeStatistic(session, answeredElem, old, word, '+', wordQuizScore))
     } else {
-      setLearnWordsState(old => addStatToWord(old, wordId, cardId)(0.5, '-'))
+      if (!answeredElem) return
+      setLearnWordsState(old => addStatToWord(old, wordId, cardId)(wordQuizScore, '-'))
       setNotificationCollection(old => [...old, {id: nanoid(), type: 'deleted', text: 'not correct'}])
-      setStatistic(old => changeStatistic(old, word, '-'))
+      setStatistic(old => changeStatistic(session, answeredElem, old, word, '-', wordQuizScore))
     }
 
     speak(word.word)
@@ -81,7 +83,8 @@ export const Quiz = ({word, changeTaskHandler}:typeQuiz) => {
       word={word} 
       quizSetUp={quizSetUp} 
       isAnswered={isAnswered} 
-      onClickHandler={onClickHandler}      
+      onClickHandler={onClickHandler}    
+      progresBarIndex={howManyNeedToCompleteWord}  
     />
   )
 }

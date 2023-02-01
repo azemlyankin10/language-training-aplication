@@ -42,3 +42,15 @@ export const settingsState = atom({
     localStorageEffect('settings'),
   ]
 })
+
+export const scoreSettingsState = atom({
+  key: 'scoreSettingsState',
+  default: {
+    howManyNeedToCompleteWord: 10,
+    wordQuizScore: 0.5,
+    flashCardScore: 1
+  },
+  effects: [
+    localStorageEffect('scoreSettingsState'),
+  ]
+})

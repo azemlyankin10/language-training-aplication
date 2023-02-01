@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil"
 import { statsState } from "../../state/atom"
 import { typeStat } from "../types"
 
-export const useCreateStatInstanse = ({name}: {name: 'quiz'}) => {
+export const useCreateStatInstanse = ({name}: {name: 'quiz' | 'cards'}) => {
   const [statistic, setStatictic] = useRecoilState(statsState)
   const [currentStat, setCurrentStat] = useState<typeStat>()
   const [session, setSession] = useState('')

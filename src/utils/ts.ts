@@ -24,8 +24,8 @@ export const deleteCard = (arrayWidthAllCards: typeReadingCard[], currentCardId:
 
 export const changeCollection = (selected: typeOfOneindicator, cards: typeReadingCard[]): typeReadingCard[] => {
   switch (selected) {
-    case 'favorits':
-      return cards.filter(el => el.indicators.includes('favorits'))
+    case 'favorit':
+      return cards.filter(el => el.indicators.includes('favorit'))
     case 'unread':
       return cards.filter(el => el.indicators.includes('unread'))
     case 'read':
@@ -71,32 +71,35 @@ export const addStatToWord = (oldArray: addedWord[], wordId: string, cardId: str
     return oldArray
 }
 
-export const changeStatistic = (allArray: typeStat[], card: addedWord, operator: '-' | '+') => {
+export const changeStatistic = (sessionId: string, selectedWord: string, allArray: typeStat[], card: addedWord, operator: '-' | '+', indexIncrementStat: number) => {
   const copyOfArray = [...allArray]
-  const oneCard = copyOfArray.find(el => el.sessionId)
+  const oneCard = copyOfArray.find(el => el.sessionId === sessionId)
   if (!oneCard) {
     return copyOfArray
   }
-  const index = copyOfArray.findIndex(el => el.sessionId)
+  const index = copyOfArray.findIndex(el => el.sessionId === sessionId)
   
   if (operator === '+') {
-    const newCard = { ...oneCard,  trueCards: [...oneCard.trueCards, card]}
+    const changedtrueCard = {...card, selectedWord, knowWord: card.knowWord + indexIncrementStat}
+    const newCard = { ...oneCard, trueCards: [...oneCard.trueCards, changedtrueCard]}
     copyOfArray.splice(index, 1, newCard)
   } 
   if (operator === '-') {
-    const newCard = { ...oneCard,  falseCards: [...oneCard.falseCards, card]}
+    let count = card.knowWord 
+    if (card.knowWord > 0) {
+      count = card.knowWord - indexIncrementStat
+    }
+    const changedFalseCard = {...card, selectedWord, knowWord: count}
+
+    const newCard = { ...oneCard, falseCards: [...oneCard.falseCards, changedFalseCard]}
     copyOfArray.splice(index, 1, newCard)
   }
   return copyOfArray
 }
 
-// export const getDataFromStat = (session: string, statArray: typeStat[]) => {
-//   const neededArray = statArray.find(el => el.sessionId === session)
-//   // return neededArray.map(el => ({truesArray: el.trueCards, falsesArray: el.falseCards}))
-
-// }
-
-export const shuffleArray = (array: any[]) => array.sort(() => Math.random() - 0.5)
+export const shuffleArray = (
+  array: any[]) => array.sort(() => Math.random() - 0.5
+)
 
 export const getProcent = (num: number, allNum: number) => {
   if (allNum === 0) return 0

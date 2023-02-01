@@ -1,4 +1,6 @@
-export type typeOfOneindicator = 'all' | 'favorits' | 'unread' | 'read'
+import { Dispatch, ReactNode, SetStateAction } from "react"
+
+export type typeOfOneindicator = 'all' | 'favorit' | 'unread' | 'read'
 
 
 export type typeIndicators = Array<typeOfOneindicator>
@@ -26,6 +28,7 @@ export type addedWord = {
   dontKnowWord: number,
   studied: boolean,
   img: string,
+  selectedWord?: string,
 }
 
 export type typeReadingCard = {
@@ -63,6 +66,7 @@ export type typeCard = {
 }
 
 export type typeQuiz = {
+  session: string
   word: addedWord
   changeTaskHandler: () => void
 }
@@ -72,6 +76,7 @@ export type typeQuizContainer = {
   quizSetUp: {img: string, origin: string, secondary: string[]}, 
   isAnswered: boolean, 
   onClickHandler: (e: React.MouseEvent<HTMLElement>, wordId: string, cardId: string) => void
+  progresBarIndex: number
 }
 
 export type typeFlipCard = {
@@ -99,4 +104,31 @@ export type typeStat = {
   taskName: string, 
   trueCards: addedWord[] | [], 
   falseCards: addedWord[] | []
+}
+
+export type typeReadingPageContainer = {
+  select: {
+    options: typeSelectOption[]
+    selected: typeSelectOption
+    setSelected: Dispatch<SetStateAction<typeSelectOption>>
+  }
+  getArticleBtn: typeGetArticleBtn
+  cards: typeReadingCard[]
+}
+
+export type typeGetArticleBtn = {
+  isLoading: boolean
+  getArticle: () => void
+}
+
+export type typeQuizStatWidgets = {
+  trueAnswers: number, 
+  falseAnswers: number, 
+  all: number
+}
+
+export type typeTaskLayout = { 
+  isPlay: boolean, 
+  swiperSlides: ReactNode, 
+  finishTaskReactNode: ReactNode 
 }

@@ -22,11 +22,11 @@ export const FormAddText = () => {
   return (
     <form 
       onSubmit={formSubmit}
-      className="h-96 p-2 rounded-lg border-4 border-dashed border-gray-200"
+      className="h-96 p-6 shadow-lg rounded-lg bg-gray-100 text-gray-700"
     >
       <textarea 
         ref={ref}
-        className="h-5/6 w-full p-5 resize-none"
+        className="h-5/6 w-full p-5 resize-none focus:outline-red-500"
         placeholder="Input your custom text"
         >
       </textarea>
