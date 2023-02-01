@@ -10,3 +10,22 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.swiper-scrollbar.swiper-scrollbar-horizontal {
+  bottom: initial !important;
+  top: 5px !important;
+}
+.swiper-scrollbar-drag {
+  background-color: chartreuse !important;
+}
+
+.custom-bg {
+  /* background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); */
+  background: rgb(3,90,156);
+  background: linear-gradient(0deg, rgba(3,90,156,1) 21%, rgba(46,181,246,1) 63%);
+}
+
+.custom-bg-2 {
+  /* background-image: linear-gradient( 135deg, #FFD26F 10%, #3677FF 100%); */
+  box-shadow: -4px 10px 25px 3px rgba(0,0,0,0.68);
+}

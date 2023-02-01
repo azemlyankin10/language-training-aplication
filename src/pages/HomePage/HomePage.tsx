@@ -2,7 +2,8 @@ import { Card } from "../../components/Card/Card"
 import { typeCard } from "../../utils/types"
 
 const cardsArray: typeCard[] = [
-  {title: 'reading', desc: 'Add text, read and translate.', link: '/reading', img: 'https://static01.nyt.com/images/2021/05/21/arts/21Summer-Reading-2021-Cover/21Summer-Reading-2021-A-03-superJumbo.jpg?quality=75&auto=webp'},
+  {title: 'reading', desc: 'Add text, read and translate', link: '/reading', img: 'https://static01.nyt.com/images/2021/05/21/arts/21Summer-Reading-2021-Cover/21Summer-Reading-2021-A-03-superJumbo.jpg?quality=75&auto=webp'},
+  {title: 'vocabulary', desc: 'Train words', link: '/vocabulary', img: 'https://www.socialstudies.com/wp-content/uploads/19.5.9-post-social-studies-vocabulary-words-engagement.png'},
 ]
 
 export const HomePage = () => {

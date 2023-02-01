@@ -21,7 +21,7 @@ function indicator(indicator: typeOfOneindicator, index: number) {
   if (indicator === 'unread') {
     colors.container = 'bg-green-100 text-green-800'
     colors.round = 'bg-green-500'
-  } else if (indicator === 'favorits') {
+  } else if (indicator === 'favorit') {
     colors.container = 'bg-yellow-100 text-yellow-800'
     colors.round = 'bg-yellow-300'
   } else if(indicator === 'read') {

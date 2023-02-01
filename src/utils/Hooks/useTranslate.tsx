@@ -1,17 +1,13 @@
-import { useRecoilValue } from "recoil"
-import { settingsState } from "../../state/atom"
-
 const API_KEY = 'AIzaSyBLK92-NMnWpKiq8uduewKXbVqs0C3jjpg'
 
 export const useTranslate = () => {
-  const { originalLang, translatedLang } = useRecoilValue(settingsState)
 
-  const translate = async (word: string) => {
+  const translate = async (word: string, originLang: string, translatedLang: string) => {
     
     let url = `https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`
     url += '&q=' + encodeURI(word)
-    url += `&source=${originalLang.lang}`
-    url += `&target=${translatedLang.lang}`
+    url += `&source=${originLang}`
+    url += `&target=${translatedLang}`
     try {
       const res = await fetch(url, {
         method: 'GET',

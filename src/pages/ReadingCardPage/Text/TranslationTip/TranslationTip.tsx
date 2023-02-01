@@ -1,32 +1,47 @@
 import { Tip } from "../../../../components/Tip/Tip"
 import { position, typeReadingCard } from "../../../../utils/types"
 import { useEffect, useState } from "react"
-import { changeCard, countWords } from "../../../../utils/ts"
-import { useSetRecoilState } from "recoil"
-import { readingCards } from "../../../../state/atom"
+import { countWords, getPhoto } from "../../../../utils/ts"
+import { useRecoilValue, useSetRecoilState } from "recoil"
+import { learnWords, settingsState } from "../../../../state/atom"
 import { useTranslate } from "../../../../utils/Hooks/useTranslate"
 import { useSpeechSynthesis } from "../../../../utils/Hooks/useSpeechSynthesis"
 import iconSpeak from '../../../../img/speak-icon.svg'
+import { nanoid } from "nanoid"
 
 export const TranslationTip = ({ card, position, word, onClose}: { card: typeReadingCard, position: position, word: string, onClose: () => void}) => {
   const [translation, setTranslation] = useState('')
-  const setReadingCards = useSetRecoilState(readingCards)
+  const setLearnedWords = useSetRecoilState(learnWords)
+  const { originalLang, translatedLang } = useRecoilValue(settingsState)
   const { translate } = useTranslate()
   const { speak } = useSpeechSynthesis()
 
   useEffect(() => {
     (async() => {
       if (word.length > 0) {
-        const translated = await translate(word)
+        const translated = await translate(word, originalLang.lang, translatedLang.lang)
         setTranslation(translated)
       }
     })()  
-  }, [translate, word])
+  }, [originalLang.lang, translate, translatedLang.lang, word])
 
 
-  const addNewWord = () => {
-    const newCard = {...card, addedWords: card.addedWords?.concat({ word, translation })}
-    setReadingCards(old => changeCard(old, card.id, newCard))
+  const addNewWord = async () => {
+    const photo = await getPhoto(word)
+    
+    const newWord = { 
+      addedFrom: card.id,
+      word, 
+      translation, 
+      id: nanoid(), 
+      knowWord: 0,
+      dontKnowWord: 0,
+      studied: false,
+      img: photo
+    }
+    setLearnedWords(old => (
+      [...old, newWord]
+    ))
     onClose()
   }
 

@@ -1,12 +1,28 @@
 import { atom } from "recoil"
 import { localStorageEffect } from "./effects"
-import { typeNotifications, typeReadingCard } from "../utils/types"
+import {addedWord, typeNotifications, typeReadingCard, typeStat } from "../utils/types"
 
 export const readingCards = atom({
   key: 'readingCards',
   default: [] as typeReadingCard[],
   effects: [
     localStorageEffect('readingCards'),
+  ]
+})
+
+export const learnWords = atom({
+  key: 'learnWords',
+  default: [] as addedWord[],
+  effects: [
+    localStorageEffect('learnWords'),
+  ]
+})
+
+export const statsState = atom({
+  key: 'statsState',
+  default: [] as typeStat[],
+  effects: [
+    localStorageEffect('statsState'),
   ]
 })
 
@@ -24,5 +40,17 @@ export const settingsState = atom({
   },
   effects: [
     localStorageEffect('settings'),
+  ]
+})
+
+export const scoreSettingsState = atom({
+  key: 'scoreSettingsState',
+  default: {
+    howManyNeedToCompleteWord: 10,
+    wordQuizScore: 0.5,
+    flashCardScore: 1
+  },
+  effects: [
+    localStorageEffect('scoreSettingsState'),
   ]
 })

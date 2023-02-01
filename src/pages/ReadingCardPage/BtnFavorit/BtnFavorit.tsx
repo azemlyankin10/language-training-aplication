@@ -8,11 +8,11 @@ export const BtnFavorit = ({card}: {card: typeReadingCard}) => {
   const setReadingCards = useSetRecoilState(readingCards)
 
   const onClickHandler = () => {
-    if (card.indicators.includes('favorits')) {
-      const newCard: typeReadingCard = { ...card, indicators: card.indicators.filter(el => el !== 'favorits') }
+    if (card.indicators.includes('favorit')) {
+      const newCard: typeReadingCard = { ...card, indicators: card.indicators.filter(el => el !== 'favorit') }
       setReadingCards(old => changeCard(old, card.id, newCard))
     } else {
-      const newCard: typeReadingCard = { ...card, indicators: card.indicators.concat('favorits') }
+      const newCard: typeReadingCard = { ...card, indicators: card.indicators.concat('favorit') }
       setReadingCards(old => changeCard(old, card.id, newCard))
     }
   }
