@@ -1,5 +1,4 @@
 import { Tip } from "../../../../components/Tip/Tip"
-import { position, typeReadingCard } from "../../../../utils/types"
 import { useEffect, useState } from "react"
 import { countWords, getPhoto } from "../../../../utils/ts"
 import { useRecoilValue, useSetRecoilState } from "recoil"
@@ -8,9 +7,11 @@ import { useTranslate } from "../../../../utils/Hooks/useTranslate"
 import { useSpeechSynthesis } from "../../../../utils/Hooks/useSpeechSynthesis"
 import iconSpeak from '../../../../img/speak-icon.svg'
 import { nanoid } from "nanoid"
+import { typeTranslationTip } from "../../../../utils/types"
 
-export const TranslationTip = ({ card, position, word, onClose}: { card: typeReadingCard, position: position, word: string, onClose: () => void}) => {
-  const [translation, setTranslation] = useState('')
+
+export const TranslationTip = ({ card, position, word, onClose}: typeTranslationTip) => {
+  const [translation, setTranslation] = useState<string>('')
   const setLearnedWords = useSetRecoilState(learnWords)
   const { originalLang, translatedLang } = useRecoilValue(settingsState)
   const { translate } = useTranslate()
@@ -19,7 +20,7 @@ export const TranslationTip = ({ card, position, word, onClose}: { card: typeRea
   useEffect(() => {
     (async() => {
       if (word.length > 0) {
-        const translated = await translate(word, originalLang.lang, translatedLang.lang)
+        const translated = await translate(word, originalLang.lang, translatedLang.lang) as string
         setTranslation(translated)
       }
     })()  
@@ -55,11 +56,12 @@ export const TranslationTip = ({ card, position, word, onClose}: { card: typeRea
       <div className="flex items-center justify-between px-3 py-1 bg-gray-100 border-t border-gray-200 rounded-b-lg">
         <button 
           disabled={!translation}
+          style={{visibility: countWords(word) > 2 ? 'hidden' : 'initial'}}
           type="button" 
           className="disabled:border-gray-400, disabled:text-gray-400 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
           onClick={addNewWord}  
         >
-          {countWords(word) > 2 ? 'Add sentense' : 'Add word'}
+          Add word
         </button>
         <button 
           onClick={() => { speak(word) }}

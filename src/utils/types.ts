@@ -132,3 +132,10 @@ export type typeTaskLayout = {
   swiperSlides: ReactNode, 
   finishTaskReactNode: ReactNode 
 }
+
+export type typeTranslationTip = { 
+  card: typeReadingCard, 
+  position: position, 
+  word: string, 
+  onClose: () => void
+}

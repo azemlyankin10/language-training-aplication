@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid'
 import { useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { notificationCollection, readingCards, settingsState } from '../../state/atom'
+import { convert } from '../ts'
 
 
 export const useGetRandomArticle = () => {
@@ -27,7 +28,7 @@ export const useGetRandomArticle = () => {
       const res = await fetch(`https://${language}.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=20&srsearch=${getTitleResEl.title.toLowerCase()}`) as any
       const el = await res.json()
       const text = el.query.search.map((el: any) => el.snippet.replace(/<[^>]*>?/gm, ''))
-      setArticle(text.join(','))
+      setArticle(text.map((el: string) => convert(el)).join(','))
     } catch (error) {
       console.log(error);
     } finally {

@@ -1,3 +1,5 @@
+import { convert } from "../ts"
+
 const API_KEY = 'AIzaSyBLK92-NMnWpKiq8uduewKXbVqs0C3jjpg'
 
 export const useTranslate = () => {
@@ -16,8 +18,8 @@ export const useTranslate = () => {
           Accept: "application/json"
         }
       })
-      const { data: { translations } } = await res.json();
-      return translations[0].translatedText;
+      const { data: { translations } } = await res.json()
+      return convert(translations[0].translatedText) 
     } catch (error) {
       console.log("There was an error with the translation request: ", error);
     }

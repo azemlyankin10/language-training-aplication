@@ -19,7 +19,7 @@ export const Tip = ({ position, children, onClose }: {position: position, childr
 
   return (
     <div 
-      className="absolute top-0 left-0 w-full h-full"
+      className="fixed top-0 left-0 w-full h-screen"
       onClick={onClose}
     >
       <div 

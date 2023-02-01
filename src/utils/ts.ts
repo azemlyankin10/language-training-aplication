@@ -105,3 +105,12 @@ export const getProcent = (num: number, allNum: number) => {
   if (allNum === 0) return 0
   return Number((num / allNum * 100).toFixed(1))
 }
+
+export const convert = (str: string) => {
+    if (!str) return ''
+    return str.replace(/&quot;/g,'"')
+        .replace(/&gt;/g,'>')
+        .replace(/&lt;/g,'<')
+        .replace(/&amp;/g,'&')
+}
+  

@@ -32,9 +32,9 @@ export const Settings = ({onClose}: {onClose: () => void}) => {
           name='voiceLang'
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         >
-          {<option value={settingState.voiceLang.id}>{`${settingState.voiceLang.name} (${settingState.voiceLang.lang})`}</option>}
-          {langs.map(({name, lang, id}) => (
-            <option key={id} value={id}>{`${name} (${lang})`}</option>
+          {<option value={settingState.voiceLang.id}>{settingState.voiceLang.trueName}</option>}
+          {langs.map(({ id, trueName }) => (
+            <option key={id} value={id}>{trueName}</option>
           ))}
         </select>
       </div>
@@ -46,9 +46,9 @@ export const Settings = ({onClose}: {onClose: () => void}) => {
           name='originalLang'
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         >
-          {<option value={settingState.originalLang.id}>{`${settingState.originalLang.name} (${settingState.originalLang.lang})`}</option>}
-          {langs.map(({lang, id}) => (
-            <option key={id} value={id}>{lang}</option>
+          {<option value={settingState.originalLang.id}>{settingState.originalLang.trueName}</option>}
+          {langs.map(({ id, trueName }) => (
+            <option key={id} value={id}>{trueName}</option>
           ))}
         </select>
       </div>
@@ -60,9 +60,9 @@ export const Settings = ({onClose}: {onClose: () => void}) => {
           name='translatedLang'
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         >
-          {<option value={settingState.translatedLang.id}>{`${settingState.translatedLang.name} (${settingState.translatedLang.lang})`}</option>}
-          {langs.map(({lang, id}) => (
-            <option key={id} value={id}>{lang}</option>
+          {<option value={settingState.translatedLang.id}>{settingState.translatedLang.trueName}</option>}
+          {langs.map(({ id, trueName }) => (
+            <option key={id} value={id}>{trueName}</option>
           ))}
         </select>
       </div>

@@ -3,7 +3,7 @@ export const Drawer = ({title, children, onClose}: {title: string, children: any
 
   return (
     <div 
-      className="absolute z-30 top-0 right-0 left-0 bottom-0 bg-[#0000002a]"
+      className="absolute z-30 top-0 right-0 left-0 bottom-0"
       onClick={onClose}
     >
       <div 

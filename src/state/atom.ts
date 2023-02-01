@@ -34,9 +34,9 @@ export const notificationCollection = atom({
 export const settingsState = atom({
   key: 'settingsState',
   default: {
-    originalLang: {id: "ZNt6drUmXrhdfY8cEMpKf", lang: "en-US", name: "Альберт"},
-    translatedLang: {id: "bp4EyggMTVp97qBYbyMTd", lang: "uk-UA", name: "Леся"},
-    voiceLang: {id: "ZNt6drUmXrhdfY8cEMpKf", lang: "en-US", name: "Альберт"}
+    originalLang: {id: "PYnOgWrsj9c1zrrydqY9H", lang: "en-US", name: "Google US English", trueName: 'English'},
+    translatedLang: {id: "xvyj0HTdPVaarLo0jHpD8", lang: "uk-UA", name: "Леся", trueName: 'Ukrainian'},
+    voiceLang: {id: "PYnOgWrsj9c1zrrydqY9H", lang: "en-US", name: "Google US English", trueName: 'English'}
   },
   effects: [
     localStorageEffect('settings'),
